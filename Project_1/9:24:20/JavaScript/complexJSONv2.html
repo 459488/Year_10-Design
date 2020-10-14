@@ -1,0 +1,38 @@
+<html>
+	<head>
+		<title>
+			JSON Example
+		</title>
+	</head>
+	<body>
+		<h1 id="subjectA"></h1>
+		<p id="a1"></p>
+		<p id="a2"></p>
+		<h1 id="subjectB"></h1>
+		<p id="b1"></p>
+		<p id="b2"></p>
+		<button onclick=reveal()>Click To Show Answers</button>
+		<p id="answers"></p>
+	</body>
+	<script>
+		jString = '[{"Sport":[{"q1":"NBA: Toronto ?","q2":"NHL: Toronto ?"}, {"a1":"Raptors","a2":"Maple Leafs"}], "Math":[{"q1":"3 * 14 = ?","q2":"21 + 21 = ?"}, {"a1":"3 * 14 = 42","a2":"21 + 21 = 42"}]}]';
+		data = JSON.parse(jString);
+		console.log(data)
+		document.getElementById("subjectA").innerHTML = Object.getOwnPropertyNames(data[0])[0];
+		document.getElementById("subjectB").innerHTML = Object.getOwnPropertyNames(data[0])[1];
+		for (i = 1; i <= 2; i ++) {
+			document.getElementById("a" + i).innerHTML = i + ") " + data[0]["Sport"][0]["q" + i]
+		}
+		for (i = 1; i <= 2; i ++) {
+			document.getElementById("b" + i).innerHTML = (i + 2) + ") " + data[0]["Math"][0]["q" + i]
+		}
+		function reveal() {
+			answer1 = data[0]["Sport"][1]["a1"];
+			answer2 = data[0]["Sport"][1]["a2"];
+			answer3 = data[0]["Math"][1]["a1"];
+			answer4 = data[0]["Math"][1]["a2"];
+			document.getElementById("answers").innerHTML = "1) " + answer1 + "<br>2) " + answer2 + "<br>3) " + answer3 + "<br>4) " + answer4
+		}
+	</script>
+
+</html>

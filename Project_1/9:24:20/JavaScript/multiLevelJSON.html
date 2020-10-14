@@ -1,0 +1,20 @@
+<html>
+	<head>
+		<title>
+			JSON Example
+		</title>
+	</head>
+	<body>
+		<p id = "example"> 
+		</p>
+	</body>
+	<script>
+		jString = '{"name":{"firstName":"Cleopatra", "lastName":"Ptolemy"}, "address":{"city":"Alexandria", "province":"Egypt"}}'
+		data = JSON.parse(jString);
+		document.getElementById("example").innerHTML = data.name.firstName + ", " + data.address.city;
+	</script>
+
+</html>
+
+
+
