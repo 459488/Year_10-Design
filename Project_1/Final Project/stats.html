@@ -1,36 +1,132 @@
 <html lang="en-US">
-   
-    <head>
-        
-        <title>Fill This In</title>
-        
-        <link rel="stylesheet" href="stylz.css">
-        <script src="all.js"></script>
 
-        <style>
-        </style>
-
-    </head>
+<head>
     
-    <body>
-        
-        <div id="mySidenav" class="sidenav">
-            <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
-            <a href="index.html">Home</a>
-            <a href="about.html">About</a>
-            <a href="stats.html">Stats</a>
-            <a href="quiz.html">Quiz</a>
-            <a href="more.html">More</a>
-        </div>
-          
-        <div id="main">
-            <h1>Stats</h1>
-            <span style="font-size:30px;cursor:pointer" onclick="openNav()">&#9776; open</span>
-        </div>
-
-    </body>
+    <title>Fill This In</title>
     
-    <script type="text/javascript">
-    </script>
+    <link rel="stylesheet" href="stylz.css">
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    
+    <style>
+        #chosen, #reset {
+            display: none;
+        }
+
+        .fieldNames {
+            background-color: #dddddd;
+        }
+        
+        table {
+            font-family: arial, sans-serif;
+            border-collapse: collapse;
+            width: 100%;
+            margin-bottom: 50px;
+            z-index: 12;
+        }
+
+        td, th {
+            border: 1px solid #141414;
+            text-align: left;
+            padding: 8px;
+            color: black;
+            
+        }
+
+        th {
+            background-color:white;
+        }
+
+        td {
+            background-color:white;
+        }
+    </style>
+    
+</head>
+
+<body>
+    
+    <div id="mySidenav" class="sidenav">
+        <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
+        <a href="index.html">Home</a>
+        <a href="about.html">About</a>
+        <a href="stats.html">Stats</a>
+        <a href="quiz.html">Quiz</a>
+        <a href="more.html">More</a>
+    </div>
+    
+    <div id="main">
+        <h1>Stats</h1>
+        <span style="font-size:30px;cursor:pointer" onclick="openNav()">&#9776; open</span>
+        <div class="btnGroup">
+            <button onclick=tiers() class="btnSelect">Tiers</button>
+            <button onclick=table() class="btnSelect">Table</button>
+        </div>
+        <br>
+        <div class="btnGroup">
+            <button onclick=hitting() class="btnSelect">Hitting</button>
+            <button onclick=pitching() class="btnSelect">Pitching</button>
+        </div>
+        <div id="tiers">
+            <div data-aos="fade-down" class="shape">
+                <h2>123123123</h2>
+            </div>
+        </div>
+        <div id="table">
+            <h1>Select A Team</h1>
+            <select id="team"> <!--can switch with other filters instead (i.e. position)-->
+                <option></option>
+                <option>NYM</option>
+                <option>LAA</option>
+            </select>
+            <p id="chosen"></p>
+
+            <br>
+            <button onclick="search()" id="submit">Print Roster</button>
+            <button onclick="location.reload()" id="reset">Reset</button>
+            <br><hr>
+    
+            <table id="roster">
+                <tr>
+                    <th class="fieldNames">Name</th>
+                    <th class="fieldNames">G</th>
+                    <th class="fieldNames">AB</th>
+                    <th class="fieldNames">R</th>
+                    <th class="fieldNames">H</th>
+                    <th class="fieldNames">2B</th>
+                    <th class="fieldNames">3B</th>
+                    <th class="fieldNames">HR</th>
+                    <th class="fieldNames">RBI</th>
+                    <th class="fieldNames">BB</th>
+                    <th class="fieldNames">SO</th>
+                    <th class="fieldNames">SB</th>
+                    <th class="fieldNames">CS</th>
+                    <th class="fieldNames">AVG</th>
+                    <th class="fieldNames">OBP</th>
+                    <th class="fieldNames">SLG</th>
+                    <th class="fieldNames">OPS</th>
+                </tr>
+            </table>
+        </div>
+    </div>
+    
+</body>
+
+
+<script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.19.2/axios.min.js"></script>
+<script src="all.js"></script>
+<script src="stats.js"></script>
+<script type="text/javascript">
+    AOS.init();
+    tiers()
+    function tiers() {
+        document.getElementById("tiers").style.display = "block";
+        document.getElementById("table").style.display = "none";
+    }
+    function table() {
+        document.getElementById("table").style.display = "block";
+        document.getElementById("tiers").style.display = "none";
+    }
+</script>
 
 </html>
