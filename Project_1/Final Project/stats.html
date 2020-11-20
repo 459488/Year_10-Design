@@ -6,14 +6,12 @@
     
     <link rel="stylesheet" href="stylz.css">
     <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    <!-- Animations <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.0.0/animate.compat.min.css"> -->
+    <!-- I added this ^ for switching tabs to make it more fluid and stuff -->
     
     <style>
-        #chosen, #reset {
-            display: none;
-        }
-
-        .fieldNames {
-            background-color: #dddddd;
+        .fieldNames {<button onclick="sortStat('')">
+</button>            background-color: #dddddd;
         }
         
         table {
@@ -23,7 +21,7 @@
             margin-bottom: 50px;
             z-index: 12;
         }
-
+        
         td, th {
             border: 1px solid #141414;
             text-align: left;
@@ -31,11 +29,11 @@
             color: black;
             
         }
-
+        
         th {
             background-color:white;
         }
-
+        
         td {
             background-color:white;
         }
@@ -57,56 +55,74 @@
     <div id="main">
         <h1>Stats</h1>
         <span style="font-size:30px;cursor:pointer" onclick="openNav()">&#9776; open</span>
+        
         <div class="btnGroup">
-            <button onclick=tiers() class="btnSelect">Tiers</button>
-            <button onclick=table() class="btnSelect">Table</button>
+            <button onclick="goTab('tiers')" class="btnSelect">Tiers</button>
+            <button onclick="goTab('table')" class="btnSelect">Table</button>
+            <br><br>
+            <button onclick="toggleStatus('teamtab')" class="btnSelect">Team</button>
+            <button onclick="toggleStatus('player')" class="btnSelect">Player</button>
+            <br><br>
+            <button onclick="toggleType('hitting')" class="btnSelect">Hitting</button>
+            <button onclick="toggleType('pitching')" class="btnSelect">Pitching</button>
+            <br><br>
         </div>
-        <br>
-        <div class="btnGroup">
-            <button onclick=hitting() class="btnSelect">Hitting</button>
-            <button onclick=pitching() class="btnSelect">Pitching</button>
-        </div>
-        <div id="tiers">
+
+
+        <div class="tab hidden" id="tiers">
             <div data-aos="fade-down" class="shape">
                 <h2>123123123</h2>
             </div>
         </div>
-        <div id="table">
+        <div class="tab hidden" id="table">
             <h1>Select A Team</h1>
-            <select id="team"> <!--can switch with other filters instead (i.e. position)-->
-                <option></option>
-                <option>NYM</option>
-                <option>LAA</option>
-            </select>
-            <p id="chosen"></p>
-
-            <br>
-            <button onclick="search()" id="submit">Print Roster</button>
-            <button onclick="location.reload()" id="reset">Reset</button>
+            <div id="filters">
+                <select id="team">
+                    <option>All</option>
+                </select>
+                <select id="season">
+                    <option>2020</option>
+                </select>
+                <select id="position">
+                    <option>All</option>
+                    <option value="C">Catcher (C)</option>
+                    <option value="1B">First Baseman (1B)</option>
+                    <option value="2B">Second Baseman (2B)</option>
+                    <option value="3B">Third Basemen (3B)</option>
+                    <option value="SS">Shortstop (SS)</option>
+                    <option value="LF">Left Field (LF)</option>
+                    <option value="CF">Center Field (CF)</option>
+                    <option value="RF">Right Field (RF)</option>
+                </select>
+            </div>
+            <button onclick="search()" id="submit">Submit</button>
             <br><hr>
-    
-            <table id="roster">
+            <table id="players">
                 <tr>
-                    <th class="fieldNames">Name</th>
-                    <th class="fieldNames">G</th>
-                    <th class="fieldNames">AB</th>
-                    <th class="fieldNames">R</th>
-                    <th class="fieldNames">H</th>
-                    <th class="fieldNames">2B</th>
-                    <th class="fieldNames">3B</th>
-                    <th class="fieldNames">HR</th>
-                    <th class="fieldNames">RBI</th>
-                    <th class="fieldNames">BB</th>
-                    <th class="fieldNames">SO</th>
-                    <th class="fieldNames">SB</th>
-                    <th class="fieldNames">CS</th>
-                    <th class="fieldNames">AVG</th>
-                    <th class="fieldNames">OBP</th>
-                    <th class="fieldNames">SLG</th>
-                    <th class="fieldNames">OPS</th>
+                    <th class="fieldNames"><button onclick="sortStat('Name')">Name</button></th>
+                    <th class="fieldNames"><button onclick="sortStat('Games')">G</button></th>
+                    <th class="fieldNames"><button onclick="sortStat('AtBats')">AB</button></th>
+                    <th class="fieldNames"><button onclick="sortStat('Runs')">R</button></th>
+                    <th class="fieldNames"><button onclick="sortStat('Hits')">H</button></th>
+                    <th class="fieldNames"><button onclick="sortStat('Doubles')">2B</button></th>
+                    <th class="fieldNames"><button onclick="sortStat('Triples')">3B</button></th>
+                    <th class="fieldNames"><button onclick="sortStat('HomeRuns')">HR</button></th>
+                    <th class="fieldNames"><button onclick="sortStat('RunsBattedIn')">RBI</button></th>
+                    <th class="fieldNames"><button onclick="sortStat('Walks')">BB</button></th>
+                    <th class="fieldNames"><button onclick="sortStat('Strikeouts')">SO</button></th>
+                    <th class="fieldNames"><button onclick="sortStat('StolenBases')">SB</button></th>
+                    <th class="fieldNames"><button onclick="sortStat('CaughtStealing')">CS</button></th>
+                    <th class="fieldNames"><button onclick="sortStat('BattingAverage')">AVG</button></th>
+                    <th class="fieldNames"><button onclick="sortStat('OnBasePercentage')">OBP</button></th>
+                    <th class="fieldNames"><button onclick="sortStat('SluggingPercentage')">SLG</button></th>
+                    <th class="fieldNames"><button onclick="sortStat('OnBasePlusSlugging')">OPS</button></th>
                 </tr>
             </table>
         </div>
+        <div class="tab hidden" id="teamtab">team</div>
+        <div class="tab hidden" id="player">player</div>
+        <div class="tab hidden" id="hitting">hitting</div>
+        <div class="tab hidden" id="pitching">pitching</div>
     </div>
     
 </body>
@@ -114,19 +130,11 @@
 
 <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.19.2/axios.min.js"></script>
+<script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
 <script src="all.js"></script>
 <script src="stats.js"></script>
 <script type="text/javascript">
     AOS.init();
-    tiers()
-    function tiers() {
-        document.getElementById("tiers").style.display = "block";
-        document.getElementById("table").style.display = "none";
-    }
-    function table() {
-        document.getElementById("table").style.display = "block";
-        document.getElementById("tiers").style.display = "none";
-    }
 </script>
 
 </html>
