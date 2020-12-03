@@ -1,58 +1,59 @@
 <html lang="en-US">
 
-<head>
-    
-    <title>Fill This In</title>
-    
-    <link rel="stylesheet" href="stylz.css">
-    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
-    <!-- Animations <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.0.0/animate.compat.min.css"> -->
-    <!-- I added this ^ for switching tabs to make it more fluid and stuff -->
-    
-    <style>
-        .fieldNames {<button onclick="sortStat('')">
-</button>            background-color: #dddddd;
-        }
+    <head>
         
-        table {
-            font-family: arial, sans-serif;
-            border-collapse: collapse;
-            width: 100%;
-            margin-bottom: 50px;
-            z-index: 12;
-        }
+        <title>Fill This In</title>
         
-        td, th {
-            border: 1px solid #141414;
-            text-align: left;
-            padding: 8px;
-            color: black;
+        <link rel="stylesheet" href="stylz.css">
+        <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+        <!-- Animations <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.0.0/animate.compat.min.css"> -->
+        <!-- I added this ^ for switching tabs to make it more fluid and stuff -->
+        
+        <style>
             
-        }
+            .fieldNames {
+                background-color: #dddddd;
+            }
+            
+            table {
+                font-family: arial, sans-serif;
+                border-collapse: collapse;
+                width: 100%;
+                margin-bottom: 50px;
+                z-index: 12;
+            }
+            
+            td, th {
+                border: 1px solid #141414;
+                text-align: left;
+                padding: 8px;
+                color: black;
+            }
+            
+            th {
+                background-color:white;
+            }
+            
+            td {
+                background-color:white;
+            }
         
-        th {
-            background-color:white;
-        }
-        
-        td {
-            background-color:white;
-        }
-    </style>
-    
-</head>
+        </style>
 
-<body>
+    </head>
+
+    <body>
     
-    <div id="mySidenav" class="sidenav">
-        <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
-        <a href="index.html">Home</a>
-        <a href="about.html">About</a>
-        <a href="stats.html">Stats</a>
-        <a href="quiz.html">Quiz</a>
-        <a href="more.html">More</a>
-    </div>
-    
-    <div id="main">
+        <div id="mySidenav" class="sidenav">
+            <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
+            <a href="index.html">Home</a>
+            <a href="about.html">About</a>
+            <a href="stats.html">Stats</a>
+            <a href="quiz.html">Quiz</a>
+            <a href="more.html">More</a>
+        </div>
+        
+        <div id="main">
         <h1>Stats</h1>
         <span style="font-size:30px;cursor:pointer" onclick="openNav()">&#9776; open</span>
         
@@ -60,23 +61,30 @@
             <button onclick="goTab('tiers')" class="btnSelect">Tiers</button>
             <button onclick="goTab('table')" class="btnSelect">Table</button>
             <br><br>
+        </div>
+        
+        <div class="tab hidden" id="tiers">
             <button onclick="toggleStatus('teamtab')" class="btnSelect">Team</button>
             <button onclick="toggleStatus('player')" class="btnSelect">Player</button>
             <br><br>
             <button onclick="toggleType('hitting')" class="btnSelect">Hitting</button>
             <button onclick="toggleType('pitching')" class="btnSelect">Pitching</button>
             <br><br>
-        </div>
-
-
-        <div class="tab hidden" id="tiers">
             <div data-aos="fade-down" class="shape">
                 <h2>123123123</h2>
             </div>
         </div>
+        
         <div class="tab hidden" id="table">
+            <button onclick="toggleStatus('teamtab')" class="btnSelect">Team</button>
+            <button onclick="toggleStatus('player')" class="btnSelect">Player</button>
+            <br><br>
+            <button onclick="toggleType('hitting')" class="btnSelect">Hitting</button>
+            <button onclick="toggleType('pitching')" class="btnSelect">Pitching</button>
+            <br><br>
+            
             <h1>Select A Team</h1>
-            <div id="filters">
+            <div class="filters">
                 <select id="team">
                     <option>All</option>
                 </select>
@@ -93,48 +101,78 @@
                     <option value="LF">Left Field (LF)</option>
                     <option value="CF">Center Field (CF)</option>
                     <option value="RF">Right Field (RF)</option>
+                    <option value="SP">Starting Pitcher (SP)</option>
+                    <option value="RP">Relief Pitcher (RP)</option>
                 </select>
             </div>
-            <button onclick="search()" id="submit">Submit</button>
-            <br><hr>
-            <table id="players">
-                <tr>
-                    <th class="fieldNames"><button onclick="sortStat('Name')">Name</button></th>
-                    <th class="fieldNames"><button onclick="sortStat('Games')">G</button></th>
-                    <th class="fieldNames"><button onclick="sortStat('AtBats')">AB</button></th>
-                    <th class="fieldNames"><button onclick="sortStat('Runs')">R</button></th>
-                    <th class="fieldNames"><button onclick="sortStat('Hits')">H</button></th>
-                    <th class="fieldNames"><button onclick="sortStat('Doubles')">2B</button></th>
-                    <th class="fieldNames"><button onclick="sortStat('Triples')">3B</button></th>
-                    <th class="fieldNames"><button onclick="sortStat('HomeRuns')">HR</button></th>
-                    <th class="fieldNames"><button onclick="sortStat('RunsBattedIn')">RBI</button></th>
-                    <th class="fieldNames"><button onclick="sortStat('Walks')">BB</button></th>
-                    <th class="fieldNames"><button onclick="sortStat('Strikeouts')">SO</button></th>
-                    <th class="fieldNames"><button onclick="sortStat('StolenBases')">SB</button></th>
-                    <th class="fieldNames"><button onclick="sortStat('CaughtStealing')">CS</button></th>
-                    <th class="fieldNames"><button onclick="sortStat('BattingAverage')">AVG</button></th>
-                    <th class="fieldNames"><button onclick="sortStat('OnBasePercentage')">OBP</button></th>
-                    <th class="fieldNames"><button onclick="sortStat('SluggingPercentage')">SLG</button></th>
-                    <th class="fieldNames"><button onclick="sortStat('OnBasePlusSlugging')">OPS</button></th>
-                </tr>
-            </table>
+            
+            
+            <div class="tab2 hidden" id="hitting">
+                <button onclick="filter()">Submit</button>
+                <br><hr>
+                <table id="table1">
+                    <tr>
+                        <th class="fieldNames"><button onclick="sortStat('Name')">Name</button></th>
+                        <th class="fieldNames"><button onclick="sortStat('Games')">G</button></th>
+                        <th class="fieldNames"><button onclick="sortStat('AtBats')">AB</button></th>
+                        <th class="fieldNames"><button onclick="sortStat('Runs')">R</button></th>
+                        <th class="fieldNames"><button onclick="sortStat('Hits')">H</button></th>
+                        <th class="fieldNames"><button onclick="sortStat('Doubles')">2B</button></th>
+                        <th class="fieldNames"><button onclick="sortStat('Triples')">3B</button></th>
+                        <th class="fieldNames"><button onclick="sortStat('HomeRuns')">HR</button></th>
+                        <th class="fieldNames"><button onclick="sortStat('RunsBattedIn')">RBI</button></th>
+                        <th class="fieldNames"><button onclick="sortStat('Walks')">BB</button></th>
+                        <th class="fieldNames"><button onclick="sortStat('Strikeouts')">SO</button></th>
+                        <th class="fieldNames"><button onclick="sortStat('StolenBases')">SB</button></th>
+                        <th class="fieldNames"><button onclick="sortStat('CaughtStealing')">CS</button></th>
+                        <th class="fieldNames"><button onclick="sortStat('BattingAverage')">AVG</button></th>
+                        <th class="fieldNames"><button onclick="sortStat('OnBasePercentage')">OBP</button></th>
+                        <th class="fieldNames"><button onclick="sortStat('SluggingPercentage')">SLG</button></th>
+                        <th class="fieldNames"><button onclick="sortStat('OnBasePlusSlugging')">OPS</button></th>
+                    </tr>
+                </table>
+            </div>
+        
+            <div class="tab2 hidden" id="pitching">
+                <button onclick="filter()">Submit</button>
+                <br><hr>
+                <table id="table2">
+                    <tr>
+                        <th class="fieldNames"><button onclick="sortStat('Name')">Name</button></th>
+                        <th class="fieldNames"><button onclick="sortStat('Wins')">W</button></th>
+                        <th class="fieldNames"><button onclick="sortStat('Losses')">L</button></th>
+                        <th class="fieldNames"><button onclick="sortStat('EarnedRunAverage')">ERA</button></th>
+                        <th class="fieldNames"><button onclick="sortStat('Games')">G</button></th>
+                        <th class="fieldNames"><button onclick="sortStat('Started')">GS</button></th>
+                        <th class="fieldNames"><button onclick="sortStat('PitchingCompleteGames')">CG</button></th>
+                        <th class="fieldNames"><button onclick="sortStat('PitchingShutOuts')">SHO</button></th>
+                        <th class="fieldNames"><button onclick="sortStat('Saves')">SV</button></th>
+                        <th class="fieldNames"><button onclick="sortStat('PitchingBlownSaves')">BS</button></th>
+                        <th class="fieldNames"><button onclick="sortStat('InningsPitchedDecimal')">IP</button></th>
+                        <th class="fieldNames"><button onclick="sortStat('PitchingHits')">H</button></th>
+                        <th class="fieldNames"><button onclick="sortStat('PitchingRuns')">R</button></th>
+                        <th class="fieldNames"><button onclick="sortStat('PitchingEarnedRuns')">ER</button></th>
+                        <th class="fieldNames"><button onclick="sortStat('PitchingHomeRuns')">HR</button></th>
+                        <th class="fieldNames"><button onclick="sortStat('PitchingHitByPitch')">HB</button></th>
+                        <th class="fieldNames"><button onclick="sortStat('PitchingWalks')">BB</button></th>
+                        <th class="fieldNames"><button onclick="sortStat('PitchingStrikeouts')">SO</button></th>
+                        <th class="fieldNames"><button onclick="sortStat('WalksHitsPerInningsPitched')">WHIP</button></th>
+                        <th class="fieldNames"><button onclick="sortStat('PitchingBattingAverageAgainst')">AVG</button></th>
+                    </tr>
+                </table>
+            </div>
         </div>
-        <div class="tab hidden" id="teamtab">team</div>
-        <div class="tab hidden" id="player">player</div>
-        <div class="tab hidden" id="hitting">hitting</div>
-        <div class="tab hidden" id="pitching">pitching</div>
-    </div>
+        
+    </body>
     
-</body>
-
-
-<script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.19.2/axios.min.js"></script>
-<script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
-<script src="all.js"></script>
-<script src="stats.js"></script>
-<script type="text/javascript">
-    AOS.init();
-</script>
-
+    
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.19.2/axios.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+    <script src="all.js"></script>
+    <script src="stats.js"></script>
+    <script type="text/javascript">
+        AOS.init();
+    </script>
+    
 </html>
