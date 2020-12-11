@@ -7,6 +7,20 @@
         <link rel="stylesheet" href="stylz.css">
 
         <style>
+            .grid-container {
+                display: grid;
+                grid-template-columns: auto auto ;
+                background-color: red;
+                padding: 10px;
+            }
+            .grid-item {
+                background-color: #dddddd;
+                border: 1px solid rgba(0, 0, 0, 0.8);
+                padding: 20px;
+            }
+            iframe {
+                width: 100%;
+            }
         </style>
 
     </head>
@@ -19,13 +33,40 @@
             <a href="about.html">About</a>
             <a href="stats.html">Stats</a>
             <a href="quiz.html">Quiz</a>
+            <a href="feedback.html">Feedback</a>
             <a href="more.html">More</a>
         </div>
           
         <div id="main">
             <h1>More</h1>
             <span style="font-size:30px;cursor:pointer" onclick="openNav()">&#9776; open</span>
-        </div>
+            <h2>Check out these other cools sites!</h2>
+            <div class="grid-container">
+                <div class="grid-item">
+                    <a href="https://www.mlb.com/">mlb.com</a>
+                    <p>This is the official site of Major League Baseball (MLB)</p>
+                    <br>
+                    <iframe src="https://www.mlb.com" title="MLB" alt="Preview"></iframe>
+                </div>
+                <div class="grid-item">
+                    <a href="https://www.espn.com/mlb/">espn.com</a>
+                    <p>ESPN is one of the biggest sports networks in the world, this is their MLB page</p>
+                    <br>
+                    <iframe src="https://www.espn.com/mlb/" title="ESPN" alt="Preview"></iframe>
+                </div>
+                <div class="grid-item">
+                    <a href="https://www.baseball-reference.com/">espn.com/mlb</a>
+                    <p>Many baseball fans use Baseball Reference as a reliable source with a large database of statistics</p>
+                    <br>
+                    <iframe src="https://www.baseball-reference.com/" title="Baseball Reference" alt="Preview"></iframe>
+                </div>  
+                <div class="grid-item">
+                    <a href="https://www.fangraphs.com/">fangraphs.com</a>
+                    <p>Fangraphs offers a wide range of sabermetrics to explore</p>
+                    <br>
+                    <iframe src="https://www.fangraphs.com/" title="Fangraphs" alt="Preview"></iframe>
+                </div>
+            </div>
 
     </body>
     
