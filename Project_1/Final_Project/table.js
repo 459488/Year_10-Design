@@ -1,9 +1,9 @@
-var names = [];
-
 function clearTable() {
     $('#table1').html(`
     <tr>
     <th class="fieldNames"><button onclick="sortStat('Name')">Name</button></th>
+    <th class="fieldNames"><button onclick="sortStat('Position')">Pos</button></th>
+    <th class="fieldNames"><button onclick="sortStat('Team')">Team</button></th>
     <th class="fieldNames"><button onclick="sortStat('Games')">G</button></th>
     <th class="fieldNames"><button onclick="sortStat('AtBats')">AB</button></th>
     <th class="fieldNames"><button onclick="sortStat('Runs')">R</button></th>
@@ -25,6 +25,8 @@ function clearTable() {
     $('#table2').html(`
     <tr>
     <th class="fieldNames"><button onclick="sortStat('Name')">Name</button></th>
+    <th class="fieldNames"><button onclick="sortStat('Position')">Pos</button></th>
+    <th class="fieldNames"><button onclick="sortStat('Team')">Team</button></th>
     <th class="fieldNames"><button onclick="sortStat('Wins')">W</button></th>
     <th class="fieldNames"><button onclick="sortStat('Losses')">L</button></th>
     <th class="fieldNames"><button onclick="sortStat('EarnedRunAverage')">ERA</button></th>
@@ -53,16 +55,17 @@ function filterTable() {
     currentDisplay = [];
     var team = document.getElementById("team2").value;
     var position = document.getElementById("position2").value;
+    console.log(team + " - " + position)
     if (team == "All") {
         alert("Please Select A Team");
-    } else if (activeTab == "hitting") {
+    } else if (activeTab == "hitting2") {
         for (let i = 0; i < hitters.length; i++) {
             if (hitters[i]["Team"] == team && (position == "All" || hitters[i]["Position"] == position)) {
                 currentDisplay.push(hitters[i]);
                 printTable(i, hitters);
             }
         }
-    } else if (activeTab == "pitching") {
+    } else if (activeTab == "pitching2") {
         for (let i = 0; i < pitchers.length; i++) {
             if (pitchers[i]["Team"] == team && (position == "All" || pitchers[i]["Position"] == position)) {
                 currentDisplay.push(pitchers[i]);
@@ -97,7 +100,11 @@ function sortStat(stat) {
         for (let i = 0; i < currentDisplay.length; i++) {
             values.push(currentDisplay[i][stat]);
         }
-        values.sort(function(a, b) {return b - a});
+        if (stat == "Position" || stat == "Team") {
+            values.sort();
+        } else {
+            values.sort(function(a, b) {return b - a});
+        }
         console.log(values);
         for (let i = 0; i < values.length; i++) {
             for (let k = 0; k < currentDisplay.length; k++) {
@@ -131,7 +138,7 @@ function autocomplete(inp, arr) {
         this.parentNode.appendChild(a);
         //for each item in the array...
         for (i = 0; i < arr.length; i++) {
-            // check if the item starts with the same letters as the text field value:
+            // check if the item contains same letters as the text field value:
             if (arr[i].toUpperCase().includes(val.toUpperCase())) {
             // create a DIV element for each matching element:
             b = document.createElement("DIV");
@@ -206,18 +213,157 @@ function autocomplete(inp, arr) {
 }
 
 function search() {
+    document.getElementById("results").style.display = "block";
     for (let i = 0; i < all.length; i++) {
         if (all[i]["Name"] == document.getElementById("find").value) {
-            printTable(i, all);
-            break
+            console.log("Found " + all[i]["Name"]);
+            if (all[i]["PositionCategory"] == "P") {
+                $('#results').html(`
+                <tr>
+                <th class="fieldNames">Name</th>
+                <th class="fieldNames">Pos</th>
+                <th class="fieldNames">Team</th>
+                <th class="fieldNames">W</th>
+                <th class="fieldNames">L</th>
+                <th class="fieldNames">ERA</th>
+                <th class="fieldNames">G</th>
+                <th class="fieldNames">GS</th>
+                <th class="fieldNames">CG</th>
+                <th class="fieldNames">SHO</th>
+                <th class="fieldNames">SV</th>
+                <th class="fieldNames">BS</th>
+                <th class="fieldNames">IP</th>
+                <th class="fieldNames">H</th>
+                <th class="fieldNames">R</th>
+                <th class="fieldNames">ER</th>
+                <th class="fieldNames">HR</th>
+                <th class="fieldNames">HB</th>
+                <th class="fieldNames">BB</th>
+                <th class="fieldNames">SO</th>
+                <th class="fieldNames">WHIP</th>
+                <th class="fieldNames">AVG</th>
+                </tr>
+                `);
+                var row = results.insertRow(-1);
+                column1 = row.insertCell(0);
+                column2 = row.insertCell(1);
+                column3 = row.insertCell(2);
+                column4 = row.insertCell(3);
+                column5 = row.insertCell(4);
+                column6 = row.insertCell(5);
+                column7 = row.insertCell(6);
+                column8 = row.insertCell(7);
+                column9 = row.insertCell(8);
+                column10 = row.insertCell(9);
+                column11 = row.insertCell(10);
+                column12 = row.insertCell(11);
+                column13 = row.insertCell(12);
+                column14 = row.insertCell(13);
+                column15 = row.insertCell(14);
+                column16 = row.insertCell(15);
+                column17 = row.insertCell(16);
+                column18 = row.insertCell(17);
+                column19 = row.insertCell(18);
+                column20 = row.insertCell(19);
+                column21 = row.insertCell(20);
+                column22 = row.insertCell(21);
+                column1.innerHTML = all[i]["Name"];
+                column2.innerHTML = all[i]["Position"];
+                column3.innerHTML = all[i]["Team"];
+                column4.innerHTML = all[i]["Wins"];
+                column5.innerHTML = all[i]["Losses"];
+                column6.innerHTML = all[i]["EarnedRunAverage"];
+                column7.innerHTML = all[i]["Games"];
+                column8.innerHTML = all[i]["Started"];
+                column9.innerHTML = all[i]["PitchingCompleteGames"];
+                column10.innerHTML = all[i]["PitchingShutOuts"];
+                column11.innerHTML = all[i]["Saves"];
+                column12.innerHTML = all[i]["PitchingBlownSaves"];
+                column13.innerHTML = all[i]["InningsPitchedDecimal"];
+                column14.innerHTML = all[i]["PitchingHits"];
+                column15.innerHTML = all[i]["PitchingRuns"];
+                column16.innerHTML = all[i]["PitchingEarnedRuns"];
+                column17.innerHTML = all[i]["PitchingHomeRuns"];
+                column18.innerHTML = all[i]["PitchingHitByPitch"];
+                column19.innerHTML = all[i]["PitchingWalks"];
+                column20.innerHTML = all[i]["PitchingStrikeouts"];
+                column21.innerHTML = all[i]["WalksHitsPerInningsPitched"];
+                column22.innerHTML = all[i]["PitchingBattingAverageAgainst"];
+
+            } else {
+                $('#results').html(`
+                <tr>
+                <th class="fieldNames">Name</th>
+                <th class="fieldNames">Pos</th>
+                <th class="fieldNames">Team</th>
+                <th class="fieldNames">G</th>
+                <th class="fieldNames">AB</th>
+                <th class="fieldNames">R</th>
+                <th class="fieldNames">H</th>
+                <th class="fieldNames">2B</th>
+                <th class="fieldNames">3B</th>
+                <th class="fieldNames">HR</th>
+                <th class="fieldNames">RBI</th>
+                <th class="fieldNames">BB</th>
+                <th class="fieldNames">SO</th>
+                <th class="fieldNames">SB</th>
+                <th class="fieldNames">CS</th>
+                <th class="fieldNames">AVG</th>
+                <th class="fieldNames">OBP</th>
+                <th class="fieldNames">SLG</th>
+                <th class="fieldNames">OPS</th>
+                </tr>
+                `);
+                var row = results.insertRow(-1);
+                column1 = row.insertCell(0);
+                column2 = row.insertCell(1);
+                column3 = row.insertCell(2);
+                column4 = row.insertCell(3);
+                column5 = row.insertCell(4);
+                column6 = row.insertCell(5);
+                column7 = row.insertCell(6);
+                column8 = row.insertCell(7);
+                column9 = row.insertCell(8);
+                column10 = row.insertCell(9);
+                column11 = row.insertCell(10);
+                column12 = row.insertCell(11);
+                column13 = row.insertCell(12);
+                column14 = row.insertCell(13);
+                column15 = row.insertCell(14);
+                column16 = row.insertCell(15);
+                column17 = row.insertCell(16);
+                column18 = row.insertCell(17);
+                column19 = row.insertCell(18);
+                column1.innerHTML = all[i]["Name"];
+                column2.innerHTML = all[i]["Position"];
+                column3.innerHTML = all[i]["Team"];
+                column4.innerHTML = all[i]["Games"];
+                column5.innerHTML = all[i]["AtBats"];
+                column6.innerHTML = all[i]["Runs"];
+                column7.innerHTML = all[i]["Hits"];
+                column8.innerHTML = all[i]["Doubles"];
+                column9.innerHTML = all[i]["Triples"];
+                column10.innerHTML = all[i]["HomeRuns"];
+                column11.innerHTML = all[i]["RunsBattedIn"];
+                column12.innerHTML = all[i]["Walks"];
+                column13.innerHTML = all[i]["Strikeouts"];
+                column14.innerHTML = all[i]["StolenBases"];
+                column15.innerHTML = all[i]["CaughtStealing"];
+                column16.innerHTML = all[i]["BattingAverage"];
+                column17.innerHTML = all[i]["OnBasePercentage"];
+                column18.innerHTML = all[i]["SluggingPercentage"];
+                column19.innerHTML = all[i]["OnBasePlusSlugging"];
+            }
+            break;
         } if (i == (all.length - 1) && all[i]["Name"] != document.getElementById("find").value) {
+            document.getElementById("results").style.display = "none";
             alert("Player Not Found");
         }
     }
 }
 
 function printTable(i, thingy) {
-    if (activeTab == "hitting") {
+    if (activeTab == "hitting2") {
         var row = table1.insertRow(-1);
         column1 = row.insertCell(0);
         column2 = row.insertCell(1);
@@ -236,24 +382,28 @@ function printTable(i, thingy) {
         column15 = row.insertCell(14);
         column16 = row.insertCell(15);
         column17 = row.insertCell(16);
+        column18 = row.insertCell(17);
+        column19 = row.insertCell(18);
         column1.innerHTML = thingy[i]["Name"];
-        column2.innerHTML = thingy[i]["Games"];
-        column3.innerHTML = thingy[i]["AtBats"];
-        column4.innerHTML = thingy[i]["Runs"];
-        column5.innerHTML = thingy[i]["Hits"];
-        column6.innerHTML = thingy[i]["Doubles"];
-        column7.innerHTML = thingy[i]["Triples"];
-        column8.innerHTML = thingy[i]["HomeRuns"];
-        column9.innerHTML = thingy[i]["RunsBattedIn"];
-        column10.innerHTML = thingy[i]["Walks"];
-        column11.innerHTML = thingy[i]["Strikeouts"];
-        column12.innerHTML = thingy[i]["StolenBases"];
-        column13.innerHTML = thingy[i]["CaughtStealing"];
-        column14.innerHTML = thingy[i]["BattingAverage"];
-        column15.innerHTML = thingy[i]["OnBasePercentage"];
-        column16.innerHTML = thingy[i]["SluggingPercentage"];
-        column17.innerHTML = thingy[i]["OnBasePlusSlugging"];
-    } else if (activeTab == "pitching") {
+        column2.innerHTML = thingy[i]["Position"];
+        column3.innerHTML = thingy[i]["Team"];
+        column4.innerHTML = thingy[i]["Games"];
+        column5.innerHTML = thingy[i]["AtBats"];
+        column6.innerHTML = thingy[i]["Runs"];
+        column7.innerHTML = thingy[i]["Hits"];
+        column8.innerHTML = thingy[i]["Doubles"];
+        column9.innerHTML = thingy[i]["Triples"];
+        column10.innerHTML = thingy[i]["HomeRuns"];
+        column11.innerHTML = thingy[i]["RunsBattedIn"];
+        column12.innerHTML = thingy[i]["Walks"];
+        column13.innerHTML = thingy[i]["Strikeouts"];
+        column14.innerHTML = thingy[i]["StolenBases"];
+        column15.innerHTML = thingy[i]["CaughtStealing"];
+        column16.innerHTML = thingy[i]["BattingAverage"];
+        column17.innerHTML = thingy[i]["OnBasePercentage"];
+        column18.innerHTML = thingy[i]["SluggingPercentage"];
+        column19.innerHTML = thingy[i]["OnBasePlusSlugging"];
+    } else if (activeTab == "pitching2") {
         var row = table2.insertRow(-1);
         column1 = row.insertCell(0);
         column2 = row.insertCell(1);
@@ -275,25 +425,29 @@ function printTable(i, thingy) {
         column18 = row.insertCell(17);
         column19 = row.insertCell(18);
         column20 = row.insertCell(19);
+        column21 = row.insertCell(20);
+        column22 = row.insertCell(21);
         column1.innerHTML = thingy[i]["Name"];
-        column2.innerHTML = thingy[i]["Wins"];
-        column3.innerHTML = thingy[i]["Losses"];
-        column4.innerHTML = thingy[i]["EarnedRunAverage"];
-        column5.innerHTML = thingy[i]["Games"];
-        column6.innerHTML = thingy[i]["Started"];
-        column7.innerHTML = thingy[i]["PitchingCompleteGames"];
-        column8.innerHTML = thingy[i]["PitchingShutOuts"];
-        column9.innerHTML = thingy[i]["Saves"];
-        column10.innerHTML = thingy[i]["PitchingBlownSaves"];
-        column11.innerHTML = thingy[i]["InningsPitchedDecimal"];
-        column12.innerHTML = thingy[i]["PitchingHits"];
-        column13.innerHTML = thingy[i]["PitchingRuns"];
-        column14.innerHTML = thingy[i]["PitchingEarnedRuns"];
-        column15.innerHTML = thingy[i]["PitchingHomeRuns"];
-        column16.innerHTML = thingy[i]["PitchingHitByPitch"];
-        column17.innerHTML = thingy[i]["PitchingWalks"];
-        column18.innerHTML = thingy[i]["PitchingStrikeouts"];
-        column19.innerHTML = thingy[i]["WalksHitsPerInningsPitched"];
-        column20.innerHTML = thingy[i]["PitchingBattingAverageAgainst"];
+        column2.innerHTML = thingy[i]["Position"];
+        column3.innerHTML = thingy[i]["Team"];
+        column4.innerHTML = thingy[i]["Wins"];
+        column5.innerHTML = thingy[i]["Losses"];
+        column6.innerHTML = thingy[i]["EarnedRunAverage"];
+        column7.innerHTML = thingy[i]["Games"];
+        column8.innerHTML = thingy[i]["Started"];
+        column9.innerHTML = thingy[i]["PitchingCompleteGames"];
+        column10.innerHTML = thingy[i]["PitchingShutOuts"];
+        column11.innerHTML = thingy[i]["Saves"];
+        column12.innerHTML = thingy[i]["PitchingBlownSaves"];
+        column13.innerHTML = thingy[i]["InningsPitchedDecimal"];
+        column14.innerHTML = thingy[i]["PitchingHits"];
+        column15.innerHTML = thingy[i]["PitchingRuns"];
+        column16.innerHTML = thingy[i]["PitchingEarnedRuns"];
+        column17.innerHTML = thingy[i]["PitchingHomeRuns"];
+        column18.innerHTML = thingy[i]["PitchingHitByPitch"];
+        column19.innerHTML = thingy[i]["PitchingWalks"];
+        column20.innerHTML = thingy[i]["PitchingStrikeouts"];
+        column21.innerHTML = thingy[i]["WalksHitsPerInningsPitched"];
+        column22.innerHTML = thingy[i]["PitchingBattingAverageAgainst"];
     }
 }

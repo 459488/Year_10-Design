@@ -115,106 +115,104 @@
         </div>
         
         <div id="main">
-        <h1>Stats</h1>
-        <span style="font-size:30px;cursor:pointer" onclick="openNav()">&#9776; open</span>
-        
-        <div class="btnGroup">
-            <button onclick="goTab('tiers')" class="btnSelect">Tiers</button>
-            <button onclick="goTab('table')" class="btnSelect">Table</button>
-            <br><br>
-        </div>
-        
-        <div class="tab hidden" id="tiers">
-            <button onclick="toggleStatus('teamtab')" class="btnSelect">Team</button>
-            <button onclick="toggleStatus('player')" class="btnSelect">Player</button>
-            <br><br>
-            <button onclick="toggleType('hitting')" class="btnSelect">Hitting</button>
-            <button onclick="toggleType('pitching')" class="btnSelect">Pitching</button>
-            <br><br>
-            <div class="filters">
-                <select id="team1">
-                    <option>All</option>
-                </select>
-                <select id="season1">
-                    <option>2020</option>
-                </select>
-                <select id="position1">
-                    <option>All</option>
-                    <option value="C">Catcher (C)</option>
-                    <option value="1B">First Baseman (1B)</option>
-                    <option value="2B">Second Baseman (2B)</option>
-                    <option value="3B">Third Basemen (3B)</option>
-                    <option value="SS">Shortstop (SS)</option>
-                    <option value="LF">Left Field (LF)</option>
-                    <option value="CF">Center Field (CF)</option>
-                    <option value="RF">Right Field (RF)</option>
-                    <option value="SP">Starting Pitcher (SP)</option>
-                    <option value="RP">Relief Pitcher (RP)</option>
-                </select>
+            <h1>Stats</h1>
+            <span style="font-size:30px;cursor:pointer" onclick="openNav()">&#9776; open</span>
+            
+            <div class="btnGroup">
+                <button onclick="goTab('tiers')" class="top tiers">Tiers</button>
+                <button onclick="goTab('table')" class="top table selected">Table</button>
+                <br><br>
             </div>
             
-            <div class="tab2 hidden" id="hitting">
-                <button onclick="filter()">Submit</button>
-                <br><hr>
-                <table id="table1"></table>
-            </div>
-        
-            <div class="tab2 hidden" id="pitching">
-                <button onclick="filterTable()">Submit</button>
-                <br><hr>
-                <div data-aos="fade-down" class="shape" id="tier1">
-                    <h2>123123123</h2>
+            <div class="tab1 hidden" id="tiers">
+                <h1>League Player Stats</h1>
+                <button onclick="toggleType('hitting1')" class="bottom hitting1 selected">Hitting</button>
+                <button onclick="toggleType('pitching1')" class="bottom pitching1">Pitching</button>
+                <br><br>
+                <div class="filters">
+                    <select id="team1">
+                        <option>All</option>
+                    </select>
+                    <select id="season1">
+                        <option>2020</option>
+                    </select>
+                    <select id="position1">
+                        <option>All</option>
+                        <option value="C">Catcher (C)</option>
+                        <option value="1B">First Baseman (1B)</option>
+                        <option value="2B">Second Baseman (2B)</option>
+                        <option value="3B">Third Basemen (3B)</option>
+                        <option value="SS">Shortstop (SS)</option>
+                        <option value="LF">Left Field (LF)</option>
+                        <option value="CF">Center Field (CF)</option>
+                        <option value="RF">Right Field (RF)</option>
+                        <option value="SP">Starting Pitcher (SP)</option>
+                        <option value="RP">Relief Pitcher (RP)</option>
+                    </select>
                 </div>
-        </div>
-        
-        <div class="tab hidden" id="table">
-            <button onclick="toggleStatus('teamtab')" class="btnSelect">Team</button>
-            <button onclick="toggleStatus('player')" class="btnSelect">Player</button>
-            <br><br>
-            <button onclick="toggleType('hitting')" class="btnSelect">Hitting</button>
-            <button onclick="toggleType('pitching')" class="btnSelect">Pitching</button>
-            <br><br>
+                
+                <div class="tab2" id="hitting1">
+                    <button onclick="filterTiers()">Submit</button>
+                    <br><hr>
+                    <div data-aos="fade-down" class="shape" id="tier1">
+                        <h2>123123123</h2>
+                    </div>
+                </div>
             
-            <h1>Filter Stats</h1>
-            <div class="filters">
-                <select id="team2">
-                    <option>All</option>
-                </select>
-                <select id="season2">
-                    <option>2020</option>
-                </select>
-                <select id="position2">
-                    <option>All</option>
-                    <option value="C">Catcher (C)</option>
-                    <option value="1B">First Baseman (1B)</option>
-                    <option value="2B">Second Baseman (2B)</option>
-                    <option value="3B">Third Basemen (3B)</option>
-                    <option value="SS">Shortstop (SS)</option>
-                    <option value="LF">Left Field (LF)</option>
-                    <option value="CF">Center Field (CF)</option>
-                    <option value="RF">Right Field (RF)</option>
-                    <option value="SP">Starting Pitcher (SP)</option>
-                    <option value="RP">Relief Pitcher (RP)</option>
-                </select>
+                <div class="tab2 hidden" id="pitching1">
+                    <button onclick="filterTiers()">Submit</button>
+                    <br><hr>
+                    <div data-aos="fade-down" class="shape" id="tier1">
+                        <h2>123123123</h2>
+                    </div>
+                </div>    
             </div>
             
-            <div class="tab2 hidden" id="hitting">
-                <button onclick="filter()">Submit</button>
-                <br><hr>
-                <table id="table1"></table>
-            </div>
-        
-            <div class="tab2 hidden" id="pitching">
-                <button onclick="filterTable()">Submit</button>
-                <br><hr>
-                <table id="table2"></table>
-            </div>
+            <div class="tab1 shown" id="table">
+                <div class="search">
+                    <h1>Find A Player's Stats</h1>
+                    <input id="find" type="text" placeholder="Enter Player Name" autocomplete="off"><button id="submit" onclick="search()">Enter</button>
+                    <br><hr>
+                    <table id="results" style="display: none;"></table>
+                </div>
+                
+                <h1>League Player Stats</h1>
+                <button onclick="toggleType('hitting2')" class="bottom hitting2 selected">Hitting</button>
+                <button onclick="toggleType('pitching2')" class="bottom pitching2">Pitching</button>
+                <br><br>
+                <div class="filters">
+                    <select id="team2">
+                        <option>All</option>
+                    </select>
+                    <select id="season2">
+                        <option>2020</option>
+                    </select>
+                    <select id="position2">
+                        <option>All</option>
+                        <option value="C">Catcher (C)</option>
+                        <option value="1B">First Baseman (1B)</option>
+                        <option value="2B">Second Baseman (2B)</option>
+                        <option value="3B">Third Basemen (3B)</option>
+                        <option value="SS">Shortstop (SS)</option>
+                        <option value="LF">Left Field (LF)</option>
+                        <option value="CF">Center Field (CF)</option>
+                        <option value="RF">Right Field (RF)</option>
+                        <option value="SP">Starting Pitcher (SP)</option>
+                        <option value="RP">Relief Pitcher (RP)</option>
+                    </select>
+                    <button onclick="filterTable()">Submit</button>
+                    <br><hr>
+                </div>
+                
+                <div class="tab2 shown" id="hitting2">
+                    <table id="table1"></table>
+                </div>
             
-            <div class="search">
-                <h1>Find A Player's Stats</h1>
-                <input id="find" type="text" placeholder="Enter Player Name" autocomplete="off"><button id="submit" onclick="search()">Enter</button>
+                <div class="tab2 hidden" id="pitching2">
+                    <table id="table2"></table>
+                </div>
+                
             </div>
-
         </div>
         
     </body>
@@ -227,29 +225,30 @@
     <script src="table.js"></script>
     <script src="tiers.js"></script>
     <script type="text/javascript">
-    var all = [];
-    var pitchers = [];
-    var hitters = [];
-    var currentDisplay = [];
-    var activeTab = undefined;
+        var all = [];
+        var pitchers = [];
+        var hitters = [];
+        var currentDisplay = [];
+        var names = [];
+        var activeTab = undefined;
         dataToDropdown();
         api();
-        autocomplete(document.getElementById("find"), names);
         AOS.init();
+        autocomplete(document.getElementById("find"), names);
         function goTab(tab) {
-            $('.tab').addClass("hidden");
+            $('.tab1').addClass("hidden");
+            $('.top').removeClass("selected");
             $(`#${tab}`).removeClass('hidden');
-        }
-        function toggleStatus(tab) {
-            $('.tab').addClass("hidden");
-            $(`#${tab}`).removeClass('hidden');
+            $(`.${tab}`).addClass('selected');
         }
         function toggleType(tab) {
             clearTable();
             activeTab = tab;
             $('.tab2').addClass("hidden");
+            $('.bottom').removeClass("selected");
             $(`#${tab}`).removeClass('hidden');
-            if (tab == "hitting") {
+            $(`.${tab}`).addClass('selected');
+            if (activeTab.includes("hitting") == true) {
                 $('#position1').html(`
                     <option>All</option>
                     <option value="C">Catcher (C)</option>

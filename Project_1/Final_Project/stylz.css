@@ -47,7 +47,7 @@ body {
     .sidenav a {font-size: 18px;}
 }
 
-.btnSelect {
+.top, .bottom {
     background-color: red; color: white;
     padding: 12px;
     border-radius: 8px;
@@ -55,12 +55,6 @@ body {
     outline: none;
     cursor: pointer;
     transition: all 0.3s;
-}
-
-.btnSelect:focus {
-    transform: scale(1.10);
-    transition: all 0.3s;
-    background-color: rgb(124, 124, 124);
 }
 
 .btnGroup {
@@ -85,6 +79,10 @@ body {
 .shape h2 {
     width: 100%;
     text-align: center;
+}
+
+.selected {
+    background-color: grey;
 }
 
 .hidden {
