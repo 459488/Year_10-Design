@@ -119,23 +119,26 @@
             <span style="font-size:30px;cursor:pointer" onclick="openNav()">&#9776; open</span>
             
             <div class="btnGroup">
-                <button onclick="goTab('tiers')" class="top tiers">Tiers</button>
-                <button onclick="goTab('table')" class="top table selected">Table</button>
+                <button onclick="goTab('tiers')" class="top tiers selected" title="Try the all unique tiers mode to compare specific stats in a fun visual way">Tiers</button>
+                <button onclick="goTab('table')" class="top table" title="Show all the basic stats from the MLB in a table">Table</button>
                 <br><br>
             </div>
             
-            <div class="tab1 hidden" id="tiers">
+            <div class="tab1" id="tiers">
                 <h1>League Player Stats</h1>
                 <button onclick="toggleType('hitting1')" class="bottom hitting1 selected">Hitting</button>
                 <button onclick="toggleType('pitching1')" class="bottom pitching1">Pitching</button>
                 <br><br>
                 <div class="filters">
+                    <label for="team1">Team:</label>
                     <select id="team1">
                         <option>All</option>
                     </select>
+                    <label for="season1">Season:</label>
                     <select id="season1">
                         <option>2020</option>
                     </select>
+                    <label for="posiiton1">Position:</label>
                     <select id="position1">
                         <option>All</option>
                         <option value="C">Catcher (C)</option>
@@ -146,29 +149,56 @@
                         <option value="LF">Left Field (LF)</option>
                         <option value="CF">Center Field (CF)</option>
                         <option value="RF">Right Field (RF)</option>
-                        <option value="SP">Starting Pitcher (SP)</option>
-                        <option value="RP">Relief Pitcher (RP)</option>
                     </select>
+                    <label for="stat">Stat:</label>
+                    <select id="stat">
+                        <option value="Games">G</option>
+                        <option value="AtBats">AB</option>
+                        <option value="Runs">R</option>
+                        <option value="Hits">H</option>
+                        <option value="Doubles">2B</option>
+                        <option value="Triples">3B</option>
+                        <option value="HomeRuns">HR</option>
+                        <option value="RunsBattedIn">RBI</option>
+                        <option value="Walks">BB</option>
+                        <option value="Strikeouts">SO</option>
+                        <option value="StolenBases">SB</option>
+                        <option value="CaughtStealing">CS</option>
+                        <option value="BattingAverage">AVG</option>
+                        <option value="OnBasePercentage">OBP</option>
+                        <option value="SluggingPercentage">SLG</option>
+                        <option value="OnBasePlusSlugging">OPS</option>
+                    </select>
+                    <button onclick="filterTiers()">Submit</button>
+                    <br><hr>
                 </div>
                 
                 <div class="tab2" id="hitting1">
-                    <button onclick="filterTiers()">Submit</button>
-                    <br><hr>
-                    <div data-aos="fade-down" class="shape" id="tier1">
-                        <h2>123123123</h2>
+                    <div data-aos="fade-down" class="shape" id="tierH1">
+                        <h2>Tier 1 - High</h2>
+                    </div>
+                    <div data-aos="fade-down" class="shape" id="tierH2">
+                        <h2>Tier 2 - Average</h2>
+                    </div>
+                    <div data-aos="fade-down" class="shape" id="tierH3">
+                        <h2>Tier 3 - Low</h2>
                     </div>
                 </div>
             
                 <div class="tab2 hidden" id="pitching1">
-                    <button onclick="filterTiers()">Submit</button>
-                    <br><hr>
-                    <div data-aos="fade-down" class="shape" id="tier1">
-                        <h2>123123123</h2>
+                    <div data-aos="fade-down" class="shape" id="tierP1">
+                        <h2>Tier 1 - High</h2>
+                    </div>
+                    <div data-aos="fade-down" class="shape" id="tierP2">
+                        <h2>Tier 2 - Average</h2>
+                    </div>
+                    <div data-aos="fade-down" class="shape" id="tierP3">
+                        <h2>Tier 3 - Low</h2>
                     </div>
                 </div>    
             </div>
             
-            <div class="tab1 shown" id="table">
+            <div class="tab1 hidden" id="table">
                 <div class="search">
                     <h1>Find A Player's Stats</h1>
                     <input id="find" type="text" placeholder="Enter Player Name" autocomplete="off"><button id="submit" onclick="search()">Enter</button>
@@ -177,16 +207,19 @@
                 </div>
                 
                 <h1>League Player Stats</h1>
-                <button onclick="toggleType('hitting2')" class="bottom hitting2 selected">Hitting</button>
+                <button onclick="toggleType('hitting2')" class="bottom hitting2">Hitting</button>
                 <button onclick="toggleType('pitching2')" class="bottom pitching2">Pitching</button>
                 <br><br>
                 <div class="filters">
+                    <label for="team2">Team:</label>
                     <select id="team2">
                         <option>All</option>
                     </select>
+                    <label for="season2">Season:</label>
                     <select id="season2">
                         <option>2020</option>
                     </select>
+                    <label for="posiiton2">Position:</label>
                     <select id="position2">
                         <option>All</option>
                         <option value="C">Catcher (C)</option>
@@ -197,14 +230,12 @@
                         <option value="LF">Left Field (LF)</option>
                         <option value="CF">Center Field (CF)</option>
                         <option value="RF">Right Field (RF)</option>
-                        <option value="SP">Starting Pitcher (SP)</option>
-                        <option value="RP">Relief Pitcher (RP)</option>
                     </select>
                     <button onclick="filterTable()">Submit</button>
                     <br><hr>
                 </div>
                 
-                <div class="tab2 shown" id="hitting2">
+                <div class="tab2 hidden" id="hitting2">
                     <table id="table1"></table>
                 </div>
             
@@ -222,34 +253,40 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.19.2/axios.min.js"></script>
     <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
     <script src="all.js"></script>
-    <script src="table.js"></script>
     <script src="tiers.js"></script>
+    <script src="table.js"></script>
     <script type="text/javascript">
         var all = [];
         var pitchers = [];
         var hitters = [];
         var currentDisplay = [];
         var names = [];
-        var activeTab = undefined;
+        var tier1 = [];
+        var tier2 = [];
+        var tier3 = [];
+        var activeTab = "hitting1";
         dataToDropdown();
         api();
+        clearTable();
         AOS.init();
         autocomplete(document.getElementById("find"), names);
         function goTab(tab) {
-            $('.tab1').addClass("hidden");
-            $('.top').removeClass("selected");
-            $(`#${tab}`).removeClass('hidden');
-            $(`.${tab}`).addClass('selected');
+            $(".tab1").addClass("hidden");
+            $(".top").removeClass("selected");
+            $(`#${tab}`).removeClass("hidden");
+            $(`.${tab}`).addClass("selected");
         }
         function toggleType(tab) {
+            clearTiers();
             clearTable();
             activeTab = tab;
-            $('.tab2').addClass("hidden");
-            $('.bottom').removeClass("selected");
-            $(`#${tab}`).removeClass('hidden');
-            $(`.${tab}`).addClass('selected');
-            if (activeTab.includes("hitting") == true) {
-                $('#position1').html(`
+            console.log(activeTab);
+            $(".tab2").addClass("hidden");
+            $(".bottom").removeClass("selected");
+            $(`#${tab}`).removeClass("hidden");
+            $(`.${tab}`).addClass("selected");
+            if (activeTab == "hitting1") {
+                $("#position1").html(`
                     <option>All</option>
                     <option value="C">Catcher (C)</option>
                     <option value="1B">First Baseman (1B)</option>
@@ -260,7 +297,26 @@
                     <option value="CF">Center Field (CF)</option>
                     <option value="RF">Right Field (RF)</option>
                 `);
-                $('#position2').html(`
+                $("#stat").html(`
+                    <option value="Games">G</option>
+                    <option value="AtBats">AB</option>
+                    <option value="Runs">R</option>
+                    <option value="Hits">H</option>
+                    <option value="Doubles">2B</option>
+                    <option value="Triples">3B</option>
+                    <option value="HomeRuns">HR</option>
+                    <option value="RunsBattedIn">RBI</option>
+                    <option value="Walks">BB</option>
+                    <option value="Strikeouts">SO</option>
+                    <option value="StolenBases">SB</option>
+                    <option value="CaughtStealing">CS</option>
+                    <option value="BattingAverage">AVG</option>
+                    <option value="OnBasePercentage">OBP</option>
+                    <option value="SluggingPercentage">SLG</option>
+                    <option value="OnBasePlusSlugging">OPS</option>
+                `);
+            } else if (activeTab == "hitting2") {
+                $("#position2").html(`
                     <option>All</option>
                     <option value="C">Catcher (C)</option>
                     <option value="1B">First Baseman (1B)</option>
@@ -271,13 +327,35 @@
                     <option value="CF">Center Field (CF)</option>
                     <option value="RF">Right Field (RF)</option>
                 `);
-            } else {
-                $('#position1').html(`
+            } else if (activeTab == "pitching1") {
+                $("#position1").html(`
                     <option>All</option>
                     <option value="SP">Starting Pitcher (SP)</option>
                     <option value="RP">Relief Pitcher (RP)</option>
                 `);
-                $('#position2').html(`
+                $("#stat").html(`
+                    <option value="Wins">W</option>
+                    <option value="Losses">L</option>
+                    <option value="EarnedRunAverage">ERA</option>
+                    <option value="Games">G</option>
+                    <option value="Started">GS</option>
+                    <option value="PitchingCompleteGames">CG</option>
+                    <option value="PitchingShutOuts">SHO</option>
+                    <option value="Saves">SV</option>
+                    <option value="PitchingBlownSaves">BS</option>
+                    <option value="InningsPitchedDecimal">IP</option>
+                    <option value="PitchingHits">H</option>
+                    <option value="PitchingRuns">R</option>
+                    <option value="PitchingEarnedRuns">ER</option>
+                    <option value="PitchingHomeRuns">HR</option>
+                    <option value="PitchingHitByPitch">HB</option>
+                    <option value="PitchingWalks">BB</option>
+                    <option value="PitchingStrikeouts">SO</option>
+                    <option value="WalksHitsPerInningsPitched">WHIP</option>
+                    <option value="PitchingBattingAverageAgainst">AVG</option>
+                `);
+            } else if (activeTab == "pitching2") {
+                $("#position2").html(`
                     <option>All</option>
                     <option value="SP">Starting Pitcher (SP)</option>
                     <option value="RP">Relief Pitcher (RP)</option>
@@ -289,19 +367,19 @@
             teams = response.data;
             console.log(teams);
             for (let i = 0; i < teams.length; i++) {
-                var a = document.createElement('option');
+                var a = document.createElement("option");
                 a.innerHTML = teams[i]["Name"];
                 a.value = teams[i]["Team"];
-                document.getElementById('team1').appendChild(a);
+                document.getElementById("team1").appendChild(a);
                 
-                var b = document.createElement('option');
+                var b = document.createElement("option");
                 b.innerHTML = teams[i]["Name"];
                 b.value = teams[i]["Team"];
-                document.getElementById('team2').appendChild(b);
+                document.getElementById("team2").appendChild(b);
             }
         }
         async function api() {
-            var year = 2020; // $('#season').val();
+            var year = 2020; // $("#season").val();
             response = await axios.get(`https://api.sportsdata.io/v3/mlb/stats/json/PlayerSeasonStats/${year}?key=2dc0d9e775094518a3aed9b3e32919a1`)    
             all = response.data;
             for (let i = 0; i < all.length; i++) {

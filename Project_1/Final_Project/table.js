@@ -55,25 +55,27 @@ function filterTable() {
     currentDisplay = [];
     var team = document.getElementById("team2").value;
     var position = document.getElementById("position2").value;
-    console.log(team + " - " + position)
+    console.log(team + ", " + position);
     if (team == "All") {
         alert("Please Select A Team");
-    } else if (activeTab == "hitting2") {
-        for (let i = 0; i < hitters.length; i++) {
-            if (hitters[i]["Team"] == team && (position == "All" || hitters[i]["Position"] == position)) {
-                currentDisplay.push(hitters[i]);
-                printTable(i, hitters);
+    } else {
+        if (activeTab == "hitting2") {
+            for (let i = 0; i < hitters.length; i++) {
+                if (hitters[i]["Team"] == team && (position == "All" || hitters[i]["Position"] == position)) {
+                    currentDisplay.push(hitters[i]);
+                    printTable(i, hitters);
+                }
+            }
+        } else if (activeTab == "pitching2") {
+            for (let i = 0; i < pitchers.length; i++) {
+                if (pitchers[i]["Team"] == team && (position == "All" || pitchers[i]["Position"] == position)) {
+                    currentDisplay.push(pitchers[i]);
+                    printTable(i, pitchers);
+                }
             }
         }
-    } else if (activeTab == "pitching2") {
-        for (let i = 0; i < pitchers.length; i++) {
-            if (pitchers[i]["Team"] == team && (position == "All" || pitchers[i]["Position"] == position)) {
-                currentDisplay.push(pitchers[i]);
-                printTable(i, pitchers);
-            }
-        }
+        console.log(currentDisplay);
     }
-    console.log(currentDisplay);
 }
 
 function sortStat(stat) {

@@ -71,7 +71,7 @@ body {
     margin: 24px;
     background-color: rgb(180, 185, 255);
     width: 300px;
-    height: 200px;
+    height: 300px;
     padding: 6px;
     border-radius: 25%;
 }
@@ -79,6 +79,23 @@ body {
 .shape h2 {
     width: 100%;
     text-align: center;
+}
+
+#tierH1, #tierP1 {
+    background-color: green;
+    float: left;
+}
+
+#tierH2, #tierP2 {
+    background-color: yellow;
+    margin-top: 200px;
+    float: right;
+}
+
+#tierH3, #tierP3 {
+    background-color: red;
+    margin-top: 200px;
+    float: left;
 }
 
 .selected {
