@@ -76,26 +76,24 @@ body {
     border-radius: 25%;
 }
 
-.shape h2 {
-    width: 100%;
-    text-align: center;
-}
-
 #tierH1, #tierP1 {
     background-color: green;
     float: left;
+    text-align: center;
 }
 
 #tierH2, #tierP2 {
     background-color: yellow;
     margin-top: 200px;
     float: right;
+    text-align: center;
 }
 
 #tierH3, #tierP3 {
     background-color: red;
-    margin-top: 200px;
+    margin-top: 400px;
     float: left;
+    text-align: center;
 }
 
 .selected {

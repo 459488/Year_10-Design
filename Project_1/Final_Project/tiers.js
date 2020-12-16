@@ -11,13 +11,13 @@ function clearTiers() {
     </div>
     `);
     $('#pitching1').html(`
-    <div data-aos="fade-down" class="shape" id="tierH1">
+    <div data-aos="fade-down" class="shape" id="tierP1">
     <h2>Tier 1 - High</h2>
     </div>
-    <div data-aos="fade-down" class="shape" id="tierH2">
+    <div data-aos="fade-down" class="shape" id="tierP2">
         <h2>Tier 2 - Average</h2>
     </div>
-    <div data-aos="fade-down" class="shape" id="tierH3">
+    <div data-aos="fade-down" class="shape" id="tierP3">
         <h2>Tier 3 - Low</h2>
     </div>
     `);
