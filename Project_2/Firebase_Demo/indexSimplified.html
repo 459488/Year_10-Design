@@ -1,0 +1,121 @@
+<html>
+    <head>
+        <script src="https://www.gstatic.com/firebasejs/7.6.0/firebase-app.js"></script>
+        <script src="https://www.gstatic.com/firebasejs/7.6.0/firebase-analytics.js"></script>
+        <script src="https://www.gstatic.com/firebasejs/7.6.0/firebase-auth.js"></script>
+        <script src="https://www.gstatic.com/firebasejs/7.6.0/firebase-database.js"></script>
+        <script src="https://apis.google.com/js/platform.js" async defer></script>
+    </head>
+
+    <body >
+            <h1 id="uid"></h1>
+            <h3>A demonstration of how to "set" and "get" information in the database</h3>
+
+            <button onclick = "signin()" >Sign In</button>
+           
+            <input type="text" id="student" value="Enter Student">
+            <input type="text" id="subject" value="Enter Subject">
+            <input type="text" id="mark" value="Enter Mark">
+
+            <button onclick = "setData()" >Set Data</button>
+            <button onclick = "getData()" >Get data</button>
+
+            <p>Current Data:</p>
+            <p><ol id="studentList"></ol><ol id="subjectList"></ol><ol id="markList"></ol></p>    
+                 
+    </body>
+    
+    <script>
+
+        var provider = new firebase.auth.GoogleAuthProvider();
+        var userId = document.getElementById("uid").innerHTML;
+        
+        var config = 
+        {
+            apiKey: "AIzaSyBJFNBAs7oFJf3dOwlltdeA6ct0kraNvHI",
+            authDomain: "fir-demo-309f5.firebaseapp.com",
+            databaseURL: "https://fir-demo-309f5.firebaseio.com",
+            projectId: "fir-demo-309f5",
+            storageBucket: "fir-demo-309f5.appspot.com",
+            messagingSenderId: "713071005970",
+            appId: "1:713071005970:web:e6f2e641d459132587e3cb",
+            measurementId: "G-W2PW3HKTKT"
+        };
+
+        firebase.initializeApp(config);
+        firebase.auth().onAuthStateChanged(function(user) 
+        {
+            if (user == null) 
+            {
+                document.getElementById("uid").innerHTML = "not logged in";
+                return;
+            } 
+            else 
+            {
+                userId = user.uid; 
+                document.getElementById("uid").innerHTML = userId; 
+            } 
+        }); 
+
+        function signin() 
+        {
+            var provider = new firebase.auth.GoogleAuthProvider();
+            firebase.auth().signInWithRedirect(provider);
+        }
+
+        function setData() 
+        {
+            var database = firebase.database();
+            var ref = database.ref('StudentInfo');
+
+            var sname = document.getElementById("student").value;
+            var ssubject = document.getElementById("subject").value;
+            var smark = parseInt(document.getElementById("mark").value);
+            var studentID = 123;
+
+            var data = 
+            {
+                name: sname,
+                subject: ssubject,
+                mark: smark
+            }
+            ref.push(data);
+            //ref.child(studentID).set(data);
+
+            //userRef = database.ref('Users');
+            //userRef.child(studentId).set({'firstName': "Lynda", 'lastName': "Yearwood"});
+        }
+
+        function getData() 
+        {
+            var database = firebase.database();
+            //var ref = database.ref('StudentInfo/' + 100);
+            ref = database.ref('StudentInfo');
+            ref.on('child_added', gotData, errData)
+        } 
+
+        function gotData(data)
+        {
+            var studentData = data.val();
+            console.log(studentData);
+            if (studentData != null)
+            {
+                var name = studentData.name;
+                var subject = studentData.subject;
+                var mark = studentData.mark;
+
+                var oListStudent = document.getElementById('studentList');
+                var entry = document.createElement('li');
+                entry.appendChild(document.createTextNode(name + " - " + subject + " - " + mark));
+                oListStudent.appendChild(entry);
+            }
+        }
+
+        function errData(err)
+        {
+            console.log('Error!')
+            console.log(err)
+        }
+
+    </script>
+</html>

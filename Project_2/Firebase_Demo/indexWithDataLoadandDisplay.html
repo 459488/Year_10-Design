@@ -1,0 +1,115 @@
+<html>
+    
+    <head>
+        <script src="https://www.gstatic.com/firebasejs/7.6.0/firebase-app.js"></script>
+        <script src="https://www.gstatic.com/firebasejs/7.6.0/firebase-analytics.js"></script>
+        <script src="https://www.gstatic.com/firebasejs/7.6.0/firebase-auth.js"></script>
+        <script src="https://www.gstatic.com/firebasejs/7.6.0/firebase-database.js"></script>
+        <script src="https://apis.google.com/js/platform.js" async defer></script>
+    </head>
+
+    <body>
+            <input type="text" id="studentId" placeholder="Enter Student ID">
+            <br>           
+            <input type="text" id="student" placeholder="Enter Student">
+            <input type="text" id="subject" placeholder="Enter Subject">
+            <input type="text" id="mark" placeholder="Enter Mark">
+            <br>
+            <button onclick = "setData()" >Set Data</button>
+            <button onclick = "deleteData()" >Delete data</button>
+            <div id='studentList'></div>
+    </body>
+    
+    <script>
+
+        var provider = new firebase.auth.EmailAuthProvider();
+        var config = {
+            apiKey: "AIzaSyBJFNBAs7oFJf3dOwlltdeA6ct0kraNvHI",
+            authDomain: "fir-demo-309f5.firebaseapp.com",
+            databaseURL: "https://fir-demo-309f5.firebaseio.com",
+            projectId: "fir-demo-309f5",
+            storageBucket: "fir-demo-309f5.appspot.com",
+            messagingSenderId: "713071005970",
+            appId: "1:713071005970:web:e6f2e641d459132587e3cb",
+            measurementId: "G-W2PW3HKTKT"
+        };
+
+        firebase.initializeApp(config);
+        var database = firebase.database();
+        var ref = database.ref('StudentInfo');
+        ref.once('value', gotData, errData);
+
+        function gotData(data) {
+            var studentData = data.val();
+            console.log(studentData);
+            if (studentData != null) {
+                var keys = Object.keys(studentData);
+                console.log(keys);
+                for (var i = 0; i < keys.length; i++) {
+                    var k = keys[i];
+                    var name = studentData[k].name;
+                    var subject = studentData[k].subject;
+                    var mark = studentData[k].mark;
+                    var oListStudent = document.getElementById('studentList');
+                    var entry = document.createElement('li');
+                    entry.appendChild(document.createTextNode(name + " - " + subject + " - " + mark));
+                    oListStudent.appendChild(entry);
+                }
+            }
+        }
+
+        function gotData1(data) {
+            var studentData = data.val();
+            console.log(studentData);
+            if (studentData != null) {
+                var name = studentData.name;
+                var subject = studentData.subject;
+                var mark = studentData.mark;
+ 
+                var oListStudent = document.getElementById('studentList');
+                var entry = document.createElement('li');
+                entry.appendChild(document.createTextNode(name + " - " + subject + " - " + mark));
+                oListStudent.appendChild(entry);
+
+            }
+        }
+        
+        function errData(err) {
+            console.log('Error!');
+            console.log(err);
+        }
+
+        function setData() {
+            var database = firebase.database();
+            var ref = database.ref('StudentInfo');
+            
+            var sStudentId = parseInt(document.getElementById("studentId").value);
+            var sName = document.getElementById("student").value;
+            var sSubject = document.getElementById("subject").value;
+            var sMark = parseInt(document.getElementById("mark").value);
+            console.log(sStudentId);
+            var data = {
+                name: sName,
+                subject: sSubject,
+                mark: sMark
+            };
+            ref.child(sStudentId).set(data);
+            ref = database.ref('StudentInfo/'+ sStudentId);
+            ref.once('value', gotData1, errData);
+        }
+
+        function deleteData() {
+            console.log("here");
+            var database = firebase.database();
+            dStudentId = parseInt(document.getElementById("studentId").value);
+
+            //ref = database.ref('StudentInfo');
+            //ref.child(dStudentId).set(null);
+
+            ref = database.ref('StudentInfo/' + dStudentId);
+            ref.set(null);
+        }
+
+    </script>
+
+</html>
