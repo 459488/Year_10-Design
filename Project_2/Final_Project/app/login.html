@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="css/app.css">
+    <title>Code-laborate | Sign In</title>
+
+  </head>
+  <body>
+
+    <center>
+      <br><br>
+      <h1>Welcome Back!</h1>
+
+      <input type="text" name="Email" placeholder="email" id="email">
+      <input type="password" name="Password" placeholder="password" id="password">
+      <br><br>
+      <button onclick="login()">Login</button>
+      <button onclick="signUp()">Sign Up</button>
+
+    </center>
+
+  </body>
+  <script src="https://www.gstatic.com/firebasejs/8.2.9/firebase-app.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/8.2.9/firebase-auth.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/8.2.9/firebase-firestore.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/8.2.9/firebase-storage.js"></script>
+
+  <script src="js/firebase.js"></script>
+  <script src="js/login.js"></script>
+</html>
