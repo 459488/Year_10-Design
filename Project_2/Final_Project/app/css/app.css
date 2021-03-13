@@ -1,3 +1,12 @@
 body {
   padding: 42px;
 }
+
+.form-control {
+  max-width: 40%;
+  min-width: 300px;
+}
+
+.centeredxy {
+  text-align: center;
+}
