@@ -37,9 +37,12 @@ function signOut() {
 function appContent() {
   if (!auth.currentUser) {
     $('#welcome').html(`Welcome, guest. Sign in to access the full features of Code-laborate. <a class="btn btn-success" href="login.html">Sign In</a>`);
+    document.getElementById("newPostBtn").style.display = "none"
   } else {
     $('#welcome').html(`Welcome, ${auth.currentUser.email.split('@').shift()}. <button class="btn btn-danger" onclick="signOut()">Sign Out</button>`);
+    document.getElementById("newPostBtn").style.display = "block"
   }
+
   getProjects()
 }
 
@@ -103,10 +106,10 @@ function NextPost() {
     <p>${sessionList[activeIndex].data().content}</p>
     ${imageComponent}
   `)
-  $('#newPostBtn').removeClass('disabled')
+  $('#nextPost').removeClass('disabled')
   if (activeIndex == (sessionList.length - 1)) {
     // There is no next post, disable the button
-    $('#newPostBtn').addClass('disabled')
+    $('#nextPost').addClass('disabled')
   }
   $('#prevPost').removeClass('disabled')
   if (activeIndex < 1) {
