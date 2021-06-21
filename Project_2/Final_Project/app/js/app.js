@@ -100,6 +100,7 @@ function NextPost() {
   }
   $('#activeProjectShowcase').html(`
     <p>Project by ${sessionList[activeIndex].data().author.name} called "${sessionList[activeIndex].data().title}" of INDEX ${activeIndex}.</p>
+    <p>${sessionList[activeIndex].data().content}</p>
     ${imageComponent}
   `)
   $('#newPostBtn').removeClass('disabled')
